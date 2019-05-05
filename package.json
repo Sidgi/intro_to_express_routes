@@ -1,0 +1,26 @@
+{
+  "name": "intro_to_express_routes",
+  "version": "1.0.0",
+  "description": "![birds](https://media3.giphy.com/media/3o7Zen0xHZFjAFiQ1O/giphy.gif)",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "initdb":"dropdb --if-exists -e birdDb && createdb -e birdDb",
+    "reset":"node resetDb.js",
+    "seed": "node seed.js",
+    "start":"nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@git.generalassemb.ly:SidgiGA/intro_to_express_routes.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "nodemon": "^1.19.0",
+    "pg": "^7.10.0",
+    "sequelize": "^5.8.5"
+  }
+}
