@@ -13,20 +13,15 @@ app.get('/birds.json',async(req,res)=>{
 app.get('/birds/:id.json',async(req,res)=>{
   try{
     console.log(req.params.id)
-    // const bird = await BirdTable.findByPk(req.params.id)
-    const bird = await BirdTable.findAll({
-      where:{
-        id:req.params.id
-      }
-    })
-    res.send(bird[0])
+     const bird = await BirdTable.findByPk(req.params.id);
+     res.send(bird);
   }catch(e){
     res.status(404).json({message:e.message})
   }
 })
 const birdsInHtml = async (birds)=>{
-  const penguin = await birds.map(bird=>`<h1 style='text-align:center'>${bird.style}</h1>`)
-  return penguin.join(' ');
+  const penguins = await birds.map(bird=>`<h1 style='text-align:center'>${bird.style}</h1>`)
+  return penguins.join(' ');
 }
 app.get('/',async(req,res)=>{
   try{
@@ -35,6 +30,27 @@ app.get('/',async(req,res)=>{
     res.send(array)
   }catch(e){
     res.status(404).json({message:e.message})
+  }
+})
+app.get('/:id', async(req,res)=>{
+  try{
+    const id = req.params.id;
+    const bird = await BirdTable.findByPk(id);
+    res.send(`<h1 style='text-align:center'>${bird.style}</h1>`)
+  }catch(e){
+    console.log(e.message)
+  }
+})
+app.get('/cities/:name',async(req,res)=>{
+  try{
+    const city = await BirdTable.findAll({
+      where:{
+        city: req.params.name
+      }
+    })
+    res.json(city)
+  }catch(e){
+    console.log(e.message)
   }
 })
 app.listen(PORT,()=>console.log( `listen on ${PORT} port`));
