@@ -24,4 +24,17 @@ app.get('/birds/:id.json',async(req,res)=>{
     res.status(404).json({message:e.message})
   }
 })
+const birdsInHtml = async (birds)=>{
+  const penguin = await birds.map(bird=>`<h1 style='text-align:center'>${bird.style}</h1>`)
+  return penguin.join(' ');
+}
+app.get('/',async(req,res)=>{
+  try{
+    const birds =  await BirdTable.findAll();
+    const array = await birdsInHtml(birds)
+    res.send(array)
+  }catch(e){
+    res.status(404).json({message:e.message})
+  }
+})
 app.listen(PORT,()=>console.log( `listen on ${PORT} port`));
